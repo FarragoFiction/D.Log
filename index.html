@@ -1,0 +1,116 @@
+<html>
+
+<head>
+  <title>The Truth About Alt</title>
+  <link rel="stylesheet" href="index.css">
+  <link rel="icon" href="alt.ico" />
+
+  <script>
+    //https://dev.to/ekeijl/retro-crt-terminal-screen-in-css-js-4afh
+    const clickAudio = new Audio("audio/web_SoundFX_254286__jagadamba__mechanical-switch.mp3");
+    let speed = 50;
+
+    const getRandomNumberBetween = (min, max) => {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    const pickFrom = (array) => {
+      return array[getRandomNumberBetween(0, array.length - 1)];
+    }
+
+    const sleep = (ms) => {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    const transcript = async () => {
+      const lines = [
+        "[14:20:32]: A cargo vessel reports to have detected a series of signals wreaking havoc on their internal systems.",
+        "Anomalous reading at X:112 Y: -10.",
+        "Subject released several encoded short-range pulse waves detectable with an appropriate data decoder. Upon decoding the signal, users appeared to have been sending to each other relay commands for the purposes of debugging. ",
+        "Attempted translation is below.",
+        "Attempting to communicate with user: D2.",
+        "Awaiting user response… ",
+        "Awaiting user response… ",
+        "Awaiting user response… ",
+        "Connection established with: D2. Response time was 24 s. ",
+        "Requesting D2 to adjust +21 s.",
+        "Request denied.",
+        "Asking user D1 for table: OBJECTIVES.",
+        "Displaying OBJECTIVES: ",
+        "1 - “CLEAR DEBRIS”, True;",
+        "2 - “CALIBRATE FOR WAVE PATTERNS”, True;",
+        "3 - “REMOVE EXCESS SEAWEED”, False;",
+        "Reading table objective 4.",
+        "Objective 4 does not exist!",
+        "Adding table Objective “EXTERMINATE SEAGULLS”.",
+        "“EXTERMINATE SEAGULLS” cannot be added to the table: “OBJECTIVES”!",
+        "Adding table Objective “SCARE AWAY SEAGULLS”.",
+        "“SCARE AWAY SEAGULLS” cannot be added to the table: “OBJECTIVES”!",
+        "Asking for further debugging…",
+        "ERROR: Elements in category “VIOLENCE” cannot be with category “ANIMAL”.",
+        "Running custom command: “SIGH”.",
+        "Adding table Objective “PREVENT FURTHER BODY DETERIORATION”.",
+        "Objective added as: 4.",
+        ];
+      const terminal = document.querySelector("#terminal");
+      terminal.innerHTML = "";
+      for(let line of lines){
+        const element = document.createElement("p");
+        terminal.append(element);
+        await typeWrite(terminal,element, line)
+        await sleep(speed*10);
+
+      }
+    }
+
+    const typeWrite = async(scroll_element, element,text) => {
+      if(text.charAt(0)=="["){
+        element.innerHTML=text;
+        scroll_element.scrollTop = scroll_element.scrollHeight;
+        await sleep(speed* 10);
+        return;
+      }
+      console.log("JR NOTE: first char is", text.charAt[0], "speed is", speed);
+      for(let i = 0; i< text.length; i++){
+        await sleep(speed);
+        clickAudio.play();
+        element.innerHTML += text.charAt(i);
+        scroll_element.scrollTop = scroll_element.scrollHeight;
+      }
+    }
+
+    const play = () => {
+      transcript();
+    }
+
+
+    window.onload = () => {
+      window.onclick = () => {
+        clickAudio.play();
+      }
+
+      window.onmousedown = ()=>{
+          speed = 0;
+      }
+      window.onmouseup = ()=>{
+        speed = 50;
+      }
+    }
+  </script>
+
+
+</head>
+
+<body>
+  <div id="crt">
+    <div class="scanline"></div>
+    <div class="lines"></div>
+
+    <div id="terminal">
+      <button onClick="play()">Click To Play Transcript</button>
+    </div>
+  </div>
+
+</body>
+
+</html>
